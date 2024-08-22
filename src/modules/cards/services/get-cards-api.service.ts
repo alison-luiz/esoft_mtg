@@ -39,8 +39,6 @@ export class GetCardsApi {
     const url = `${process.env.MAGIC_THE_GATHERING_API_URL}/cards`;
     const lastPage = Number(process.env.LAST_PAGE_NUMBER);
 
-    const data: CreateCardDto[] = [];
-
     for (let page = 1; page <= lastPage; page++) {
       const response = await axios.get(`${url}?page=${page}`);
       const { data: apiResponse } = response;

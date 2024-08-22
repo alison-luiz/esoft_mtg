@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfig } from './shared/database/database.config';
 import { DatabaseService } from './shared/database/database.service';
 import { CardsModule } from './modules/cards/cards.module';
+import { CommandersModule } from './modules/commanders/commanders.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CardsModule } from './modules/cards/cards.module';
       inject: [ConfigService],
     }),
     CardsModule,
+    CommandersModule,
   ],
   controllers: [],
   providers: [DatabaseService],
