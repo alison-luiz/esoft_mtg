@@ -2,15 +2,10 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import axios from 'axios';
+import { PassThrough } from 'stream';
 import { AppError } from '../../../shared/utils/appError.exception';
-import { chunkArray } from '../../../shared/utils/chunkArray';
 import { Config } from '../entities/config.entity';
-import {
-  CreateCardDto,
-  ForeignNameDto,
-  LegalityDto,
-  RulingDto,
-} from '../dto/create-card.dto';
+import { ForeignNameDto, LegalityDto, RulingDto } from '../dto/create-card.dto';
 import { CreateCardService } from './create-card.service';
 
 @Injectable()
@@ -40,22 +35,33 @@ export class GetCardsApi {
     const lastPage = Number(process.env.LAST_PAGE_NUMBER);
 
     for (let page = 1; page <= lastPage; page++) {
-      const response = await axios.get(`${url}?page=${page}`);
-      const { data: apiResponse } = response;
-      const apiCards = apiResponse.cards;
+      const responseStream = axios({
+        method: 'get',
+        url: `${url}?page=${page}`,
+        responseType: 'stream',
+      });
 
-      if (!Array.isArray(apiCards)) {
-        throw new AppError({
-          id: 'INVALID_API_RESPONSE',
-          message: 'API response is not in the expected format',
-          status: HttpStatus.BAD_REQUEST,
-        });
-      }
+      const transformStream = new PassThrough({
+        objectMode: true,
+      });
 
-      const chunks = chunkArray(apiCards, 1000);
-      await Promise.all(
-        chunks.map(async chunk => {
-          const chunkData = chunk.map(card => {
+      let accumulatedData = '';
+
+      transformStream.on('data', async chunk => {
+        accumulatedData += chunk.toString();
+
+        try {
+          const { cards: apiCards } = JSON.parse(accumulatedData);
+
+          if (!Array.isArray(apiCards)) {
+            throw new AppError({
+              id: 'INVALID_API_RESPONSE',
+              message: 'API response is not in the expected format',
+              status: HttpStatus.BAD_REQUEST,
+            });
+          }
+
+          const chunkData = apiCards.map(card => {
             return {
               name: card.name,
               manaCost: card.manaCost,
@@ -120,8 +126,20 @@ export class GetCardsApi {
           });
 
           await this.createCardService.executeBatch(chunkData);
-        }),
-      );
+
+          accumulatedData = '';
+        } catch (err) {
+          if (!(err instanceof SyntaxError)) {
+            throw new AppError({
+              id: 'PARSE_API_RESPONSE_ERROR',
+              message: 'Error to parse API response',
+              status: HttpStatus.BAD_REQUEST,
+            });
+          }
+        }
+      });
+
+      await (await responseStream).data.pipe(transformStream);
     }
 
     await this.configRepository.save({
