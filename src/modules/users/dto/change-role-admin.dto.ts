@@ -12,7 +12,7 @@ export class ChangeRoleAdminDto {
 
   @ApiProperty({
     description: 'The secret key to change the role of a user to admin.',
-    example: 'super-secret-key',
+    example: '9c7fd8ed-2ee5-43be-be34-67863a30ab9c',
   })
   @IsNotEmpty()
   @IsString()

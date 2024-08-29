@@ -1,10 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { GetCardsApi } from './services/get-cards-api.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../users/decorators/roles.decorator';
 import { Role } from '../users/enums/role.enum';
 @ApiTags('Cards')
 @Controller('cards')
+@ApiBearerAuth()
 export class CardsController {
   constructor(private readonly getCardsApi: GetCardsApi) {}
 

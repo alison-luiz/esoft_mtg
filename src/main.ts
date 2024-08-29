@@ -21,7 +21,6 @@ async function bootstrap() {
     .setTitle('Magic the Gathering API')
     .setDescription('Magic the Gathering API')
     .setVersion('1.0')
-    .addTag('CRUD')
     .addBearerAuth()
     .build();
 
