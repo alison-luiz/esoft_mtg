@@ -7,7 +7,7 @@ import { DatabaseConfig } from './shared/database/database.config';
 import { DatabaseService } from './shared/database/database.service';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { Module } from '@nestjs/common';
-import { RolesGuard } from './modules/auth/guards/roles.guard';
+import { RolesGuard } from './modules/users/guards/roles.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
 
