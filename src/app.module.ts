@@ -10,6 +10,7 @@ import { Module } from '@nestjs/common';
 import { RolesGuard } from './modules/users/guards/roles.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
+import { DecksModule } from './modules/decks/decks.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UsersModule } from './modules/users/users.module';
     AuthModule,
     CardsModule,
     CommandersModule,
+    DecksModule,
   ],
   controllers: [],
   providers: [

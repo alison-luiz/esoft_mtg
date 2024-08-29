@@ -1,7 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  ManyToMany,
+} from 'typeorm';
 import { ForeignName } from './foreign-name.entity';
 import { Legality } from './legality.entity';
 import { Ruling } from './ruling.entity';
+import { Deck } from '@/modules/decks/entities/deck.entity';
 
 @Entity('cards')
 export class Card {
@@ -99,4 +107,7 @@ export class Card {
 
   @Column({ nullable: true })
   createdBy: string;
+
+  @ManyToMany(() => Deck, deck => deck.cards)
+  deck: Deck;
 }
