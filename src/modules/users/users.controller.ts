@@ -13,6 +13,8 @@ import { UserFromJwt } from '../auth/models/user-from-jwt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
+import { ChangeRoleAdminDto } from './dto/change-role-admin.dto';
 
 @ApiTags('Users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -26,13 +28,27 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @IsPublic()
+  @Post('role/admin')
+  changeRoleAdminDto(@Body() changeRoleAdminDto: ChangeRoleAdminDto) {
+    return this.usersService.changeRoleAdmin(changeRoleAdminDto);
+  }
+
   @Patch('me')
   @ApiBearerAuth()
   update(
     @CurrentUser() user: UserFromJwt,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    console.log(user);
     return this.usersService.update(user.id, updateUserDto);
+  }
+
+  @Patch('me/password')
+  @ApiBearerAuth()
+  updatePassword(
+    @CurrentUser() user: UserFromJwt,
+    @Body() updateUserPasswordDto: UpdateUserPasswordDto,
+  ) {
+    return this.usersService.updatePassword(user.id, updateUserPasswordDto);
   }
 }

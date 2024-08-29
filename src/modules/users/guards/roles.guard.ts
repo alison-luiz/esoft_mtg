@@ -8,7 +8,6 @@ import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 import { Role } from '../enums/role.enum';
 import { AppError } from '@/shared/utils/appError.exception';
-import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users.service';
 
 @Injectable()

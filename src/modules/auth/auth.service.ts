@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { AppError } from '@/shared/utils/appError.exception';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { User } from '../users/entities/user.entity';
-import { UsersService } from '../users/users.service';
-import { UnauthorizedError } from './errors/unauthorized.error';
 import { LoginRequestBody } from './models/login-request-body';
+import { User } from '../users/entities/user.entity';
 import { UserPayload } from './models/user-payload';
+import { UsersService } from '../users/users.service';
 import { UserToken } from './models/user-token';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -50,8 +50,10 @@ export class AuthService {
         };
       }
     }
-    throw new UnauthorizedError(
-      'Email address or password provided is incorrect.',
-    );
+    throw new AppError({
+      id: 'ERROR_INVALID_CREDENTIALS',
+      message: 'Email address or password provided is incorrect.',
+      status: HttpStatus.UNAUTHORIZED,
+    });
   }
 }

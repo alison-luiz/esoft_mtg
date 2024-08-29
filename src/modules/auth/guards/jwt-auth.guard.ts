@@ -1,12 +1,8 @@
-import {
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ExecutionContext, HttpStatus, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { IS_PUBLIC_KEY } from '../decorators/is-public.decorator';
-import { UnauthorizedError } from '../errors/unauthorized.error';
+import { AppError } from '@/shared/utils/appError.exception';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -28,10 +24,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
     const canActivatePromise = canActivate as Promise<boolean>;
     return canActivatePromise.catch(error => {
-      if (error instanceof UnauthorizedError) {
-        throw new UnauthorizedException(error.message);
-      }
-      throw new UnauthorizedException();
+      throw new AppError({
+        id: 'ERROR_AUTHENTICATING_USER',
+        message: 'Error authenticating user',
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error,
+      });
     });
   }
 }
