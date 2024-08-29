@@ -3,6 +3,7 @@ import { Config } from '@/modules/cards/entities/config.entity';
 import { ForeignName } from '@/modules/cards/entities/foreign-name.entity';
 import { Legality } from '@/modules/cards/entities/legality.entity';
 import { Ruling } from '@/modules/cards/entities/ruling.entity';
+import { User } from '@/modules/users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
@@ -15,7 +16,7 @@ export class DatabaseConfig {
       ssl: false,
       useUTC: true,
       type: 'postgres',
-      entities: [Card, Config, ForeignName, Legality, Ruling],
+      entities: [Card, Config, ForeignName, Legality, Ruling, User],
       synchronize: true,
       connectTimeoutMS: 30000,
       migrationsRun: false,

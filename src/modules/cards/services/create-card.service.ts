@@ -32,7 +32,6 @@ export class CreateCardService {
       this.cardRepository.manager.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
-
     try {
       const newCards = this.cardRepository.create(cards);
       await queryRunner.manager.save(Card, newCards);

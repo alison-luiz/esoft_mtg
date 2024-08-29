@@ -22,7 +22,6 @@ export class GetCardsApi {
         hasFetchCards: true,
       },
     });
-
     if (hasFetchCards) {
       throw new AppError({
         id: 'CARDS_ALREADY_FETCHED',
@@ -30,29 +29,22 @@ export class GetCardsApi {
         status: HttpStatus.BAD_REQUEST,
       });
     }
-
     const url = `${process.env.MAGIC_THE_GATHERING_API_URL}/cards`;
     const lastPage = Number(process.env.LAST_PAGE_NUMBER);
-
     for (let page = 1; page <= lastPage; page++) {
       const responseStream = axios({
         method: 'get',
         url: `${url}?page=${page}`,
         responseType: 'stream',
       });
-
       const transformStream = new PassThrough({
         objectMode: true,
       });
-
       let accumulatedData = '';
-
       transformStream.on('data', async chunk => {
         accumulatedData += chunk.toString();
-
         try {
           const { cards: apiCards } = JSON.parse(accumulatedData);
-
           if (!Array.isArray(apiCards)) {
             throw new AppError({
               id: 'INVALID_API_RESPONSE',
@@ -60,7 +52,6 @@ export class GetCardsApi {
               status: HttpStatus.BAD_REQUEST,
             });
           }
-
           const chunkData = apiCards.map(card => {
             return {
               name: card.name,
@@ -124,9 +115,7 @@ export class GetCardsApi {
               createdBy: 'API',
             };
           });
-
           await this.createCardService.executeBatch(chunkData);
-
           accumulatedData = '';
         } catch (err) {
           if (!(err instanceof SyntaxError)) {
@@ -138,10 +127,8 @@ export class GetCardsApi {
           }
         }
       });
-
       await (await responseStream).data.pipe(transformStream);
     }
-
     await this.configRepository.save({
       hasFetchCards: true,
     });

@@ -20,7 +20,6 @@ export class GetCommandersService {
   ): Promise<PaginatedResultFindAllCommanderDto> {
     try {
       const { page = 1, limit = 10 } = findAllCommanderQueryDto;
-
       const queryBuilder = this.cardRepository
         .createQueryBuilder('cards')
         .select([
@@ -32,29 +31,23 @@ export class GetCommandersService {
         .where('cards.supertypes ILIKE :supertypes', {
           supertypes: `%legendary%`,
         });
-
       if (findAllCommanderQueryDto.name) {
         queryBuilder.andWhere('cards.name ILIKE :name', {
           name: `%${findAllCommanderQueryDto.name}%`,
         });
       }
-
       if (findAllCommanderQueryDto.colorIdentity) {
         queryBuilder.andWhere('cards.colorIdentity ILIKE :colorIdentity', {
           colorIdentity: `%${findAllCommanderQueryDto.colorIdentity}%`,
         });
       }
-
       const [data, count] = await queryBuilder
         .skip((+page - 1) * +limit)
         .take(+limit)
         .getManyAndCount();
-
       const totalPages = Math.ceil(count / +limit);
-
       const from = (+page - 1) * +limit + 1;
       const to = (+page - 1) * +limit + data.length;
-
       return {
         data: data,
         meta: {

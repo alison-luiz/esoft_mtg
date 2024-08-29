@@ -1,7 +1,9 @@
+import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Query } from '@nestjs/common';
-import { GetCommandersService } from './services/get-commanders.service';
 import { FindAllCommanderQueryDto } from './dto/find-all-commander.dto';
+import { GetCommandersService } from './services/get-commanders.service';
 
+@ApiTags('Commanders')
 @Controller('commanders')
 export class CommandersController {
   constructor(private readonly getCommandersService: GetCommandersService) {}

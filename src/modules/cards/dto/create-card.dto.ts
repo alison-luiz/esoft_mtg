@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
   IsNotEmpty,
@@ -10,18 +10,18 @@ import {
 import { Type } from 'class-transformer';
 
 export class RulingDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '2020-09-25',
-    description: 'Data da regra.',
+    description: 'Date of the ruling.',
   })
   @IsOptional()
   @IsString()
   date: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example:
       'Activating Roiling Vortex’s last ability won’t undo any life gained before it resolved.',
-    description: 'Texto da regra.',
+    description: 'Text of the ruling.',
   })
   @IsOptional()
   @IsString()
@@ -29,17 +29,17 @@ export class RulingDto {
 }
 
 export class IdentifierDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'c8ba336d-ccc2-40a8-b1dd-e22dcc0f30e4',
-    description: 'ID do Scryfall.',
+    description: 'ID Scryfall.',
   })
   @IsOptional()
   @IsString()
   scryfallId: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 148449,
-    description: 'ID do multiverse.',
+    description: 'ID Multiverse.',
   })
   @IsOptional()
   @IsNumber()
@@ -47,25 +47,25 @@ export class IdentifierDto {
 }
 
 export class ForeignNameDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Cho-Manno',
-    description: 'Nome da carta em idioma estrangeiro.',
+    description: 'Name of the card in the foreign language.',
   })
   @IsOptional()
   @IsString()
   name: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Verhindere allen Schaden, der Cho-Manno zugefügt würde.',
-    description: 'Texto da carta no idioma estrangeiro.',
+    description: 'Text of the card in the foreign language.',
   })
   @IsOptional()
   @IsString()
   text: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Legendäre Kreatur — Mensch, Rebell',
-    description: 'Tipo da carta no idioma estrangeiro.',
+    description: 'Type of the card in the foreign language.',
   })
   @IsOptional()
   @IsString()
@@ -74,24 +74,24 @@ export class ForeignNameDto {
   @ApiPropertyOptional({
     example:
       '„Merkadias Masken können die Wahrheit nicht länger verbergen. Unsere Stunde ist endlich gekommen."',
-    description: 'Texto de flavor da carta no idioma estrangeiro.',
+    description: 'Text of the flavor in the foreign language.',
   })
   @IsOptional()
   @IsString()
   flavor: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example:
       'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148449&type=card',
-    description: 'URL da imagem da carta no idioma estrangeiro.',
+    description: 'URL of the image in the foreign language.',
   })
   @IsOptional()
   @IsString()
   imageUrl: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'German',
-    description: 'Idioma da carta.',
+    description: 'Language of the card.',
   })
   @IsOptional()
   @IsString()
@@ -99,7 +99,7 @@ export class ForeignNameDto {
 
   @ApiPropertyOptional({
     type: IdentifierDto,
-    description: 'Identificadores da carta no idioma estrangeiro.',
+    description: 'Identifiers of the card in the foreign language.',
   })
   @IsOptional()
   @ValidateNested()
@@ -108,17 +108,17 @@ export class ForeignNameDto {
 }
 
 export class LegalityDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Commander',
-    description: 'Formato em que a carta é legal.',
+    description: 'Format of the legality.',
   })
   @IsOptional()
   @IsString()
   format: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Legal',
-    description: 'Status de legalidade da carta no formato.',
+    description: 'Status of the legality.',
   })
   @IsOptional()
   @IsString()
@@ -126,9 +126,9 @@ export class LegalityDto {
 }
 
 export class CreateCardDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Cho-Manno, Revolutionary',
-    description: 'Nome da carta.',
+    description: 'Name of the card.',
   })
   @IsNotEmpty()
   @IsString()
@@ -136,39 +136,39 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     example: '{2}{W}{W}',
-    description: 'Custo de mana da carta.',
+    description: 'Mana cost of the card.',
   })
   @IsOptional()
   @IsString()
   manaCost: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 4,
-    description: 'Custo convertido de mana (cmc) da carta.',
+    description: 'Converted mana cost of the card.',
   })
   @IsOptional()
   @IsNumber()
   cmc: number;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: ['W'],
-    description: 'Cores da carta.',
+    description: 'Colors of the card.',
   })
   @IsArray()
   @IsString({ each: true })
   colors: string[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: ['W'],
-    description: 'Identidade de cor da carta.',
+    description: 'Color identity of the card.',
   })
   @IsArray()
   @IsString({ each: true })
   colorIdentity: string[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Legendary Creature — Human Rebel',
-    description: 'Tipo da carta.',
+    description: 'Card type.',
   })
   @IsOptional()
   @IsString()
@@ -176,15 +176,15 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     example: ['Legendary'],
-    description: 'Supertipos da carta.',
+    description: 'Supertypes of the card.',
   })
   @IsArray()
   @IsString({ each: true })
   supertypes: string[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: ['Creature'],
-    description: 'Tipos da carta.',
+    description: 'Types of the card.',
   })
   @IsArray()
   @IsString({ each: true })
@@ -192,40 +192,40 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     example: ['Human', 'Rebel'],
-    description: 'Subtipos da carta.',
+    description: 'Subtypes of the card.',
   })
   @IsArray()
   @IsString({ each: true })
   subtypes: string[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Rare',
-    description: 'Raridade da carta.',
+    description: 'Rarity of the card.',
   })
   @IsOptional()
   @IsString()
   rarity: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '10E',
-    description: 'Código do set da carta.',
+    description: 'Code of the set of the card.',
   })
   @IsOptional()
   @IsString()
   set: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Tenth Edition',
-    description: 'Nome do set da carta.',
+    description: 'Name of the set of the card.',
   })
   @IsOptional()
   @IsString()
   setName: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example:
       'Prevent all damage that would be dealt to Cho-Manno, Revolutionary.',
-    description: 'Texto da carta.',
+    description: 'Text of the card.',
   })
   @IsOptional()
   @IsString()
@@ -234,23 +234,23 @@ export class CreateCardDto {
   @ApiPropertyOptional({
     example:
       '"Mercadia\'s masks can no longer hide the truth. Our day has come at last."',
-    description: 'Texto de flavor da carta.',
+    description: 'Text of the flavor.',
   })
   @IsOptional()
   @IsString()
   flavor: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Steven Belledin',
-    description: 'Artista da carta.',
+    description: 'Artist of the card.',
   })
   @IsOptional()
   @IsString()
   artist: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '12',
-    description: 'Número da carta no set.',
+    description: 'Number of the card.',
   })
   @IsOptional()
   @IsString()
@@ -258,7 +258,7 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     example: '2',
-    description: 'Poder da carta.',
+    description: 'Power of the card.',
   })
   @IsOptional()
   @IsString()
@@ -266,32 +266,32 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     example: '2',
-    description: 'Resistência da carta.',
+    description: 'Resistance of the card.',
   })
   @IsOptional()
   @IsString()
   toughness: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'normal',
-    description: 'Layout da carta.',
+    description: 'Layout of the card.',
   })
   @IsOptional()
   @IsString()
   layout: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '130554',
-    description: 'ID multiverse da carta.',
+    description: 'ID Multiverse.',
   })
   @IsOptional()
   @IsString()
   multiverseid: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example:
       'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card',
-    description: 'URL da imagem da carta.',
+    description: 'URL of the image.',
   })
   @IsOptional()
   @IsString()
@@ -299,7 +299,7 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     example: '82ddb9b0-1fd3-5969-8eff-1b4b24db10d6',
-    description: 'Variações da carta.',
+    description: 'Variations of the card.',
   })
   @IsArray()
   @IsString({ each: true })
@@ -307,7 +307,7 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     type: [RulingDto],
-    description: 'Regras da carta.',
+    description: 'Rulings of the card.',
   })
   @IsArray()
   @ValidateNested({ each: true })
@@ -316,33 +316,33 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     type: [ForeignNameDto],
-    description: 'Nomes estrangeiros da carta.',
+    description: 'Names of the card in different languages.',
   })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ForeignNameDto)
   foreignNames: ForeignNameDto[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: ['10E', 'MMQ', 'PS11'],
-    description: 'Sets nos quais a carta foi impressa.',
+    description: 'Sets of the card where it was printed.',
   })
   @IsArray()
   @IsString({ each: true })
   printings: string[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example:
       'Prevent all damage that would be dealt to Cho-Manno, Revolutionary.',
-    description: 'Texto original da carta.',
+    description: 'Text of the card in the original language.',
   })
   @IsOptional()
   @IsString()
   originalText: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'Legendary Creature - Human Rebel',
-    description: 'Tipo original da carta.',
+    description: 'Type of the card in the original language.',
   })
   @IsOptional()
   @IsString()
@@ -350,24 +350,24 @@ export class CreateCardDto {
 
   @ApiPropertyOptional({
     type: [LegalityDto],
-    description: 'Legalidades da carta nos diferentes formatos.',
+    description: 'Legalities of the card in different formats.',
   })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => LegalityDto)
   legalities: LegalityDto[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '81daea6a-2735-5a46-a2da-b65a2ad5738f',
-    description: 'ID único da carta.',
+    description: 'Unique ID of the card.',
   })
   @IsOptional()
   @IsString()
   cardIdApi: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'API, User',
-    description: 'ID do usuário que criou a carta.',
+    description: 'Indicates who created the card.',
   })
   @IsOptional()
   @IsString()
