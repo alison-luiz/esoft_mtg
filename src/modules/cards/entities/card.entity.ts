@@ -107,7 +107,4 @@ export class Card {
 
   @Column({ nullable: true })
   createdBy: string;
-
-  @ManyToMany(() => Deck, deck => deck.cards)
-  deck: Deck;
 }

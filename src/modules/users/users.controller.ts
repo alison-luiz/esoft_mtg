@@ -24,19 +24,19 @@ export class UsersController {
 
   @IsPublic()
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @IsPublic()
   @Post('role/admin')
-  changeRoleAdminDto(@Body() changeRoleAdminDto: ChangeRoleAdminDto) {
+  async changeRoleAdminDto(@Body() changeRoleAdminDto: ChangeRoleAdminDto) {
     return this.usersService.changeRoleAdmin(changeRoleAdminDto);
   }
 
   @Patch('me')
   @ApiBearerAuth()
-  update(
+  async update(
     @CurrentUser() user: UserFromJwt,
     @Body() updateUserDto: UpdateUserDto,
   ) {
@@ -45,7 +45,7 @@ export class UsersController {
 
   @Patch('me/password')
   @ApiBearerAuth()
-  updatePassword(
+  async updatePassword(
     @CurrentUser() user: UserFromJwt,
     @Body() updateUserPasswordDto: UpdateUserPasswordDto,
   ) {

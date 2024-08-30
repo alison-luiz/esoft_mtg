@@ -9,7 +9,7 @@ import {
 import { AppError } from '@/shared/utils/appError.exception';
 
 @Injectable()
-export class GetCommandersService {
+export class FindAllCommandersService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,

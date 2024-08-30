@@ -1,7 +1,7 @@
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Query } from '@nestjs/common';
 import { FindAllCommanderQueryDto } from './dto/find-all-commander.dto';
-import { GetCommandersService } from './services/get-commanders.service';
+import { FindAllCommandersService } from './services/find-all-commanders.service';
 import { Role } from '../users/enums/role.enum';
 import { Roles } from '../users/decorators/roles.decorator';
 
@@ -9,11 +9,13 @@ import { Roles } from '../users/decorators/roles.decorator';
 @Controller('commanders')
 @ApiBearerAuth()
 export class CommandersController {
-  constructor(private readonly getCommandersService: GetCommandersService) {}
+  constructor(
+    private readonly FindAllCommandersService: FindAllCommandersService,
+  ) {}
 
   @Get()
   @Roles(Role.USER)
   async findAll(@Query() query: FindAllCommanderQueryDto) {
-    return this.getCommandersService.execute(query);
+    return this.FindAllCommandersService.execute(query);
   }
 }

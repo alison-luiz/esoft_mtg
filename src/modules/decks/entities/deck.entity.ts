@@ -1,9 +1,11 @@
 import { Card } from '@/modules/cards/entities/card.entity';
+import { User } from '@/modules/users/entities/user.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -22,7 +24,8 @@ export class Deck {
   @Column({ type: 'simple-array', nullable: true })
   colors: string[];
 
-  @ManyToMany(() => Card, card => card.deck, { cascade: true })
+  @ManyToMany(() => Card, { eager: true })
+  @JoinTable()
   cards: Card[];
 
   @Column()
@@ -41,4 +44,8 @@ export class Deck {
   updateTimestamp() {
     this.updatedAt = new Date();
   }
+
+  @ManyToMany(() => User, { eager: true })
+  @JoinTable()
+  createdBy: User;
 }
