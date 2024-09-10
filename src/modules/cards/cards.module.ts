@@ -8,12 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ForeignName } from './entities/foreign-name.entity';
 import { Legality } from './entities/legality.entity';
 import { Ruling } from './entities/ruling.entity';
+import { FindAllCardService } from './services/find-all-card.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Card, Config, ForeignName, Legality, Ruling]),
   ],
   controllers: [CardsController],
-  providers: [GetCardsApi, CreateCardService],
+  providers: [GetCardsApi, CreateCardService, FindAllCardService],
+  exports: [FindAllCardService],
 })
 export class CardsModule {}

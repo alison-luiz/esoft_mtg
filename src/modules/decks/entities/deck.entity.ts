@@ -1,5 +1,4 @@
 import { Card } from '@/modules/cards/entities/card.entity';
-import { User } from '@/modules/users/entities/user.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -29,6 +28,9 @@ export class Deck {
   cards: Card[];
 
   @Column()
+  createdBy: string;
+
+  @Column()
   createdAt: Date;
 
   @Column()
@@ -44,8 +46,4 @@ export class Deck {
   updateTimestamp() {
     this.updatedAt = new Date();
   }
-
-  @ManyToMany(() => User, { eager: true })
-  @JoinTable()
-  createdBy: User;
 }

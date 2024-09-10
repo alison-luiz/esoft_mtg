@@ -37,8 +37,9 @@ export class FindAllCommandersService {
         });
       }
       if (findAllCommanderQueryDto.colorIdentity) {
-        queryBuilder.andWhere('cards.colorIdentity ILIKE :colorIdentity', {
-          colorIdentity: `%${findAllCommanderQueryDto.colorIdentity}%`,
+        const colorIdentity = findAllCommanderQueryDto.colorIdentity.split(',');
+        queryBuilder.andWhere('cards.colorIdentity IN (:...colorIdentity)', {
+          colorIdentity,
         });
       }
       const [data, count] = await queryBuilder
