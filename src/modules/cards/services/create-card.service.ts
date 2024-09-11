@@ -12,9 +12,12 @@ export class CreateCardService {
     private readonly cardRepository: Repository<Card>,
   ) {}
 
-  async execute(card: CreateCardDto): Promise<Card> {
+  async execute(createdBy: string, card: CreateCardDto): Promise<Card> {
     try {
-      const newCard = this.cardRepository.create(card);
+      const newCard = this.cardRepository.create({
+        ...card,
+        createdBy,
+      });
       await this.cardRepository.save(newCard);
       return newCard;
     } catch (error) {

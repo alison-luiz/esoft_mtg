@@ -16,7 +16,7 @@ export class GetCardsApi {
     private readonly createCardService: CreateCardService,
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<string> {
     const hasFetchCards = await this.configRepository.findOne({
       where: {
         hasFetchCards: true,
@@ -132,5 +132,7 @@ export class GetCardsApi {
     await this.configRepository.save({
       hasFetchCards: true,
     });
+
+    return 'Cards fetched successfully';
   }
 }

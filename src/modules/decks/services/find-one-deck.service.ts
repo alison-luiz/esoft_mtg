@@ -39,7 +39,7 @@ export class FindOneDeckService {
       const decks = await this.deckRepository.find({
         where: { createdBy },
       });
-      if (!decks) {
+      if (decks.length === 0) {
         throw new AppError({
           id: 'DECKS_NOT_FOUND',
           message: 'Decks not found',

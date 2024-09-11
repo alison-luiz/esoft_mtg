@@ -30,6 +30,13 @@ export class RolesGuard implements CanActivate {
     if (updatedUser && updatedUser.roles.includes(Role.ADMIN)) {
       return true;
     }
+    if (!updatedUser) {
+      throw new AppError({
+        id: 'ERROR_AUTHENTICATING_USER',
+        message: 'Error authenticating user',
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+      });
+    }
     const rolesArray = Array.isArray(updatedUser.roles)
       ? updatedUser.roles
       : [updatedUser.roles];

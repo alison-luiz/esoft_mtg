@@ -7,6 +7,8 @@ import { FindAllCardService } from './services/find-all-card.service';
 import { FindAllCardQueryDto } from './dto/find-all-card.dto';
 import { CreateCardService } from './services/create-card.service';
 import { CreateCardDto } from './dto/create-card.dto';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { UserFromJwt } from '../auth/models/user-from-jwt';
 @ApiTags('Cards')
 @Controller('cards')
 @ApiBearerAuth()
@@ -31,7 +33,10 @@ export class CardsController {
 
   @Post()
   @Roles(Role.ADMIN)
-  async create(@Body() createCardDto: CreateCardDto) {
-    return this.createCardService.execute(createCardDto);
+  async create(
+    @CurrentUser() user: UserFromJwt,
+    @Body() createCardDto: CreateCardDto,
+  ) {
+    return this.createCardService.execute(user.id, createCardDto);
   }
 }
