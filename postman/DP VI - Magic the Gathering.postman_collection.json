@@ -305,7 +305,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cards?name=Ancestor's Chosen&page=1&limit=10",
+							"raw": "{{base_url}}/cards?page=1&limit=10",
 							"host": [
 								"{{base_url}}"
 							],
@@ -315,7 +315,15 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "Ancestor's Chosen"
+									"value": "Ancestor's Chosen",
+									"description": "Card name",
+									"disabled": true
+								},
+								{
+									"key": "colorIdentity",
+									"value": "W",
+									"description": "Colors e.g: B,R,W",
+									"disabled": true
 								},
 								{
 									"key": "page",
@@ -331,7 +339,7 @@
 					"response": []
 				},
 				{
-					"name": "Create One Card",
+					"name": "New Card",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -347,7 +355,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Cho-Manno, Revolutionary\",\r\n  \"manaCost\": \"{2}{W}{W}\",\r\n  \"cmc\": 4,\r\n  \"colors\": [\"W\"],\r\n  \"colorIdentity\": [\"W\"],\r\n  \"type\": \"Legendary Creature — Human Rebel\",\r\n  \"supertypes\": [\"Legendary\"],\r\n  \"types\": [\"Creature\"],\r\n  \"subtypes\": [\"Human\", \"Rebel\"],\r\n  \"rarity\": \"Rare\",\r\n  \"set\": \"10E\",\r\n  \"setName\": \"Tenth Edition\",\r\n  \"text\": \"Prevent all damage that would be dealt to Cho-Manno, Revolutionary.\",\r\n  \"flavor\": \"Mercadia's masks can no longer hide the truth. Our day has come at last.\",\r\n  \"artist\": \"Steven Belledin\",\r\n  \"number\": \"12\",\r\n  \"power\": \"2\",\r\n  \"toughness\": \"2\",\r\n  \"layout\": \"normal\",\r\n  \"multiverseid\": \"130554\",\r\n  \"imageUrl\": \"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card\",\r\n  \"variations\": [\"82ddb9b0-1fd3-5969-8eff-1b4b24db10d6\"],\r\n  \"rulings\": [\r\n    {\r\n      \"date\": \"2020-09-25\",\r\n      \"text\": \"Activating Roiling Vortex’s last ability won’t undo any life gained before it resolved.\"\r\n    }\r\n  ],\r\n  \"foreignNames\": [\r\n    {\r\n      \"name\": \"Cho-Manno\",\r\n      \"text\": \"Verhindere allen Schaden, der Cho-Manno zugefügt würde.\",\r\n      \"type\": \"Legendäre Kreatur — Mensch, Rebell\",\r\n      \"flavor\": \"„Merkadias Masken können die Wahrheit nicht länger verbergen. Unsere Stunde ist endlich gekommen.\",\r\n      \"imageUrl\": \"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148449&type=card\",\r\n      \"language\": \"German\",\r\n      \"identifiers\": {\r\n        \"scryfallId\": \"c8ba336d-ccc2-40a8-b1dd-e22dcc0f30e4\",\r\n        \"multiverseId\": 148449\r\n      }\r\n    }\r\n  ],\r\n  \"printings\": [\"10E\", \"MMQ\", \"PS11\"],\r\n  \"originalText\": \"Prevent all damage that would be dealt to Cho-Manno, Revolutionary.\",\r\n  \"originalType\": \"Legendary Creature - Human Rebel\",\r\n  \"legalities\": [\r\n    {\r\n      \"format\": \"Commander\",\r\n      \"legality\": \"Legal\"\r\n    }\r\n  ],\r\n  \"cardIdApi\": \"81daea6a-2735-5a46-a2da-b65a2ad5738f\",\r\n  \"createdBy\": \"API\"\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Nova Carta\",\r\n  \"manaCost\": \"{2}{W}{W}\",\r\n  \"cmc\": 4,\r\n  \"colors\": [\"W\"],\r\n  \"colorIdentity\": [\"W\"],\r\n  \"type\": \"Legendary Creature — Human Rebel\",\r\n  \"supertypes\": [\"Legendary\"],\r\n  \"types\": [\"Creature\"],\r\n  \"subtypes\": [\"Human\", \"Rebel\"],\r\n  \"rarity\": \"Rare\",\r\n  \"set\": \"10E\",\r\n  \"setName\": \"Tenth Edition\",\r\n  \"text\": \"Prevent all damage that would be dealt to Nova Carta.\",\r\n  \"flavor\": \"Mercadia's masks can no longer hide the truth. Our day has come at last.\",\r\n  \"artist\": \"Steven Belledin\",\r\n  \"number\": \"12\",\r\n  \"power\": \"2\",\r\n  \"toughness\": \"2\",\r\n  \"layout\": \"normal\",\r\n  \"multiverseid\": \"130554\",\r\n  \"imageUrl\": \"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card\",\r\n  \"variations\": [\"82ddb9b0-1fd3-5969-8eff-1b4b24db10d6\"],\r\n  \"rulings\": [\r\n    {\r\n      \"date\": \"2020-09-25\",\r\n      \"text\": \"Activating Roiling Vortex’s last ability won’t undo any life gained before it resolved.\"\r\n    }\r\n  ],\r\n  \"foreignNames\": [\r\n    {\r\n      \"name\": \"Cho-Manno\",\r\n      \"text\": \"Verhindere allen Schaden, der Cho-Manno zugefügt würde.\",\r\n      \"type\": \"Legendäre Kreatur — Mensch, Rebell\",\r\n      \"flavor\": \"„Merkadias Masken können die Wahrheit nicht länger verbergen. Unsere Stunde ist endlich gekommen.\",\r\n      \"imageUrl\": \"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148449&type=card\",\r\n      \"language\": \"German\",\r\n      \"identifiers\": {\r\n        \"scryfallId\": \"c8ba336d-ccc2-40a8-b1dd-e22dcc0f30e4\",\r\n        \"multiverseId\": 148449\r\n      }\r\n    }\r\n  ],\r\n  \"printings\": [\"10E\", \"MMQ\", \"PS11\"],\r\n  \"originalText\": \"Prevent all damage that would be dealt to Nova Carta.\",\r\n  \"originalType\": \"Legendary Creature - Human Rebel\",\r\n  \"legalities\": [\r\n    {\r\n      \"format\": \"Commander\",\r\n      \"legality\": \"Legal\"\r\n    }\r\n  ],\r\n  \"cardIdApi\": \"81daea6a-2735-5a46-a2da-b65a2ad5738f\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
