@@ -1,3 +1,4 @@
+
 ## Projeto para avaliação do 1º Bim. de Desafio Profissional VI 🚀
 
 ### Trabalho realizado por:
@@ -55,14 +56,23 @@ Para isso basta acessar a rota abaixo, e executá-la.
 
 - Seed - Buscar API MTG - http://localhost:3000//cards/seed
 
+**OBS:**
+Para mudar a quantidade de itens requisitado na API do Magic the Gathering, basta aumentar a quantidade do LAST_PAGE_NUMBER que esta no arquivo .env do projeto
+
+![image](https://github.com/user-attachments/assets/20757760-478d-4291-acc8-77f5323722e5)
+
+![image](https://github.com/user-attachments/assets/2528064f-88fa-40be-8f72-ccc72b868952)
+
 ## Documentação/Endpoints 📰
 
 Foi disponibilizado os arquivos de environment e collection da ferramenta [postman](https://www.postman.com/) contendo todos os endpoints feitos neste projeto.
 
-[Collection]
+[Collection](https://github.com/alison-luiz/esoft_mtg/blob/main/postman/DP%20VI%20-%20Magic%20the%20Gathering.postman_collection.json)
 
-[Environment]
+[Environment](https://github.com/alison-luiz/esoft_mtg/blob/main/postman/DP%20VI%20-%20Magic%20the%20Gathering.postman_environment.json)
 
 Também contamos com uma documentação feita pelo [swagger](https://swagger.io/) que está disponibilizada na seguinte rota da API:
 
 http://localhost:3000/docs/
+
+![image](https://github.com/user-attachments/assets/b15d5720-77a7-4b51-809d-0b08aeeb5227)
