@@ -1,15 +1,7 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToOne,
-  ManyToMany,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { ForeignName } from './foreign-name.entity';
 import { Legality } from './legality.entity';
 import { Ruling } from './ruling.entity';
-import { Deck } from '@/modules/decks/entities/deck.entity';
 
 @Entity('cards')
 export class Card {

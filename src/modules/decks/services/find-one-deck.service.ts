@@ -33,27 +33,4 @@ export class FindOneDeckService {
       });
     }
   }
-
-  async findMeDecks(createdBy: string): Promise<Deck[]> {
-    try {
-      const decks = await this.deckRepository.find({
-        where: { createdBy },
-      });
-      if (decks.length === 0) {
-        throw new AppError({
-          id: 'DECKS_NOT_FOUND',
-          message: 'Decks not found',
-          status: HttpStatus.NOT_FOUND,
-        });
-      }
-      return decks;
-    } catch (error) {
-      throw new AppError({
-        id: 'FIND_DECKS_ERROR',
-        message: 'Error to find decks',
-        status: HttpStatus.BAD_REQUEST,
-        error,
-      });
-    }
-  }
 }
