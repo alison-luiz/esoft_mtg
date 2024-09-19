@@ -364,12 +364,4 @@ export class CreateCardDto {
   @IsOptional()
   @IsString()
   cardIdApi: string;
-
-  @ApiPropertyOptional({
-    example: 'API, User',
-    description: 'Indicates who created the card.',
-  })
-  @IsOptional()
-  @IsString()
-  createdBy: string;
 }

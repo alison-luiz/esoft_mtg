@@ -1,5 +1,5 @@
 import { QueryTemplateDto } from '../../../shared/dtos/query-template.dto';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Card } from '@/modules/cards/entities/card.entity';
 
@@ -19,14 +19,6 @@ export class FindAllCardQueryDto extends QueryTemplateDto {
   @IsString()
   @IsOptional()
   colorIdentity?: string;
-
-  @ApiPropertyOptional({
-    example: true,
-    description: 'Find cards to create a deck.',
-  })
-  @IsOptional()
-  @IsBoolean()
-  createDeck?: boolean;
 }
 
 export interface PaginatedResultFindAllCardDto {

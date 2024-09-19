@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { AppError } from '@/shared/utils/appError.exception';
 
 @Injectable()
-export class FindOneCommanderService {
+export class FindOneCardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
@@ -13,21 +13,21 @@ export class FindOneCommanderService {
 
   async execute(id: string): Promise<Card> {
     try {
-      const commander = await this.cardRepository.findOne({
+      const card = await this.cardRepository.findOne({
         where: { id },
       });
-      if (!commander) {
+      if (!card) {
         throw new AppError({
-          id: 'COMMANDER_NOT_FOUND',
-          message: 'Commander not found',
+          id: 'CARD_NOT_FOUND',
+          message: 'Card not found',
           status: HttpStatus.NOT_FOUND,
         });
       }
-      return commander;
+      return card;
     } catch (error) {
       throw new AppError({
-        id: 'FIND_ONE_COMMANDER_ERROR',
-        message: 'Error to find one commander',
+        id: 'FIND_ONE_CARD_ERROR',
+        message: 'Error to find one card',
         status: HttpStatus.BAD_REQUEST,
         error,
       });

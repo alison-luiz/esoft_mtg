@@ -9,13 +9,19 @@ import { ForeignName } from './entities/foreign-name.entity';
 import { Legality } from './entities/legality.entity';
 import { Ruling } from './entities/ruling.entity';
 import { FindAllCardService } from './services/find-all-card.service';
+import { FindOneCardService } from './services/find-one-card.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Card, Config, ForeignName, Legality, Ruling]),
   ],
   controllers: [CardsController],
-  providers: [GetCardsApi, CreateCardService, FindAllCardService],
-  exports: [FindAllCardService],
+  providers: [
+    GetCardsApi,
+    CreateCardService,
+    FindAllCardService,
+    FindOneCardService,
+  ],
+  exports: [FindAllCardService, FindOneCardService],
 })
 export class CardsModule {}

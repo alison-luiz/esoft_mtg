@@ -3,22 +3,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Deck } from '../entities/deck.entity';
 import { Repository } from 'typeorm';
 import { CreateDeckDto } from '../dto/create-deck.dto';
-import { FindOneCommanderService } from '@/modules/commanders/services/find-one-commander.service';
 import { AppError } from '@/shared/utils/appError.exception';
 import { FindAllCardService } from '@/modules/cards/services/find-all-card.service';
+import { FindOneCardService } from '@/modules/cards/services/find-one-card.service';
 
 @Injectable()
 export class CreateDeckService {
   constructor(
     @InjectRepository(Deck)
     private readonly deckRepository: Repository<Deck>,
-    private readonly findOneCommanderService: FindOneCommanderService,
+    private readonly findOneCardService: FindOneCardService,
     private readonly findAllCardService: FindAllCardService,
   ) {}
 
   async execute(userId: string, createDeckDto: CreateDeckDto): Promise<Deck> {
     try {
-      const commander = await this.findOneCommanderService.execute(
+      const commander = await this.findOneCardService.execute(
         createDeckDto.commanderId,
       );
       if (!commander) {
@@ -36,17 +36,13 @@ export class CreateDeckService {
           status: HttpStatus.BAD_REQUEST,
         });
       }
-      const cards = await this.findAllCardService.execute({
-        page: 1,
-        limit: 100,
+      const cards = await this.findAllCardService.findCardsCreateDeck({
         colorIdentity: commanderColors.join(','),
-        createDeck: true,
       });
-      const deckCards = cards.data.slice(0, 99);
       const newDeck = this.deckRepository.create({
         ...createDeckDto,
         colors: commanderColors,
-        cards: deckCards,
+        cards: cards,
         createdBy: userId,
       });
       await this.deckRepository.save(newDeck);
