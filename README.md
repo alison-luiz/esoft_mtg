@@ -53,7 +53,7 @@ Com o servidor rodando, é preciso popular as informações iniciais do nosso ba
 
 Para isso basta acessar a rota abaixo, e executá-la.
 
-- Seed - Buscar API MTG - http://localhost:3000//cards/seed
+- Seed - Buscar API MTG - http://localhost:3000/cards/seed
 
 **OBS:**
 
