@@ -7,14 +7,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ChangeRoleAdminDto } from './dto/change-role-admin.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { IsPublic } from '../auth/decorators/is-public.decorator';
-import { UserFromJwt } from '../auth/models/user-from-jwt';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersService } from './users.service';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { ChangeRoleAdminDto } from './dto/change-role-admin.dto';
+import { UserFromJwt } from '../auth/models/user-from-jwt';
+import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @UseInterceptors(ClassSerializerInterceptor)
