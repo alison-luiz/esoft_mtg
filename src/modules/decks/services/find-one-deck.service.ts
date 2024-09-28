@@ -1,8 +1,8 @@
+import { AppError } from '@/shared/utils/appError.exception';
+import { Deck } from '../entities/deck.entity';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AppError } from '@/shared/utils/appError.exception';
-import { Deck } from '../entities/deck.entity';
 
 @Injectable()
 export class FindOneDeckService {
@@ -11,11 +11,22 @@ export class FindOneDeckService {
     private readonly deckRepository: Repository<Deck>,
   ) {}
 
-  async execute(id: string): Promise<Deck> {
+  async execute(createdBy: string, id: string): Promise<Deck> {
     try {
-      const deck = await this.deckRepository.findOne({
-        where: { id },
-      });
+      const queryBuilder = this.deckRepository
+        .createQueryBuilder('deck')
+        .select(['deck.id', 'deck.name', 'deck.commanderId', 'deck.colors'])
+        .leftJoin('deck.cards', 'cards')
+        .addSelect([
+          'cards.id',
+          'cards.name',
+          'cards.imageUrl',
+          'cards.colorIdentity',
+          'cards.type',
+        ])
+        .where('deck.id = :id', { id })
+        .andWhere('deck.createdBy = :createdBy', { createdBy });
+      const deck = await queryBuilder.getOne();
       if (!deck) {
         throw new AppError({
           id: 'DECK_NOT_FOUND',

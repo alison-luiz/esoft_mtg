@@ -1,9 +1,9 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { AppError } from '@/shared/utils/appError.exception';
 import { Deck } from '../entities/deck.entity';
 import { FindMeDecksDto, PaginatedFindMeDecks } from '../dto/find-me-decks.dto';
-import { AppError } from '@/shared/utils/appError.exception';
 import { HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FindMeDecksService {

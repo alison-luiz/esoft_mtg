@@ -1,23 +1,51 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { CreateDeckService } from './services/create-deck.service';
-import { Roles } from '../users/decorators/roles.decorator';
-import { Role } from '../users/enums/role.enum';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { UserFromJwt } from '../auth/models/user-from-jwt';
-import { CreateDeckDto } from './dto/create-deck.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { FindOneDeckService } from './services/find-one-deck.service';
+import { CreateDeckDto } from './dto/create-deck.dto';
+import { CreateDeckService } from './services/create-deck.service';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { DeleteOneDeckService } from './services/delete-one-deck.service';
 import { FindMeDecksDto } from './dto/find-me-decks.dto';
 import { FindMeDecksService } from './services/find-me-decks.service';
+import { FindOneDeckService } from './services/find-one-deck.service';
+import { Role } from '../users/enums/role.enum';
+import { Roles } from '../users/decorators/roles.decorator';
+import { UserFromJwt } from '../auth/models/user-from-jwt';
 
 @ApiTags('Decks')
 @Controller('decks')
 export class DecksController {
   constructor(
     private readonly createDeckService: CreateDeckService,
-    private readonly findOneDeckService: FindOneDeckService,
+    private readonly deleteOneDeckService: DeleteOneDeckService,
     private readonly findMeDecksService: FindMeDecksService,
+    private readonly findOneDeckService: FindOneDeckService,
   ) {}
+
+  @Get()
+  @ApiBearerAuth()
+  @Roles(Role.USER)
+  async findMeDecks(
+    @CurrentUser() user: UserFromJwt,
+    @Query() findMeDecksDto: FindMeDecksDto,
+  ) {
+    return this.findMeDecksService.execute(user.id, findMeDecksDto);
+  }
+
+  @Get(':id')
+  @ApiBearerAuth()
+  @Roles(Role.USER)
+  async findOne(@CurrentUser() user: UserFromJwt, @Param('id') id: string) {
+    console.log(user.roles);
+    return this.findOneDeckService.execute(user.id, id);
+  }
 
   @Post()
   @ApiBearerAuth()
@@ -29,13 +57,10 @@ export class DecksController {
     return this.createDeckService.execute(user.id, createDeckDto);
   }
 
-  @Get()
+  @Delete(':id')
   @ApiBearerAuth()
   @Roles(Role.USER)
-  async findMeDecks(
-    @CurrentUser() user: UserFromJwt,
-    @Query() findMeDecksDto: FindMeDecksDto,
-  ) {
-    return this.findMeDecksService.execute(user.id, findMeDecksDto);
+  async deleteOne(@CurrentUser() user: UserFromJwt, @Param('id') id: string) {
+    return this.deleteOneDeckService.execute(user.id, id);
   }
 }
