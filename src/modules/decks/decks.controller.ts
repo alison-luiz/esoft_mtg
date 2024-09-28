@@ -1,11 +1,13 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateDeckDto } from './dto/create-deck.dto';
@@ -20,7 +22,9 @@ import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
 
 @ApiTags('Decks')
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('decks')
+@ApiBearerAuth()
 export class DecksController {
   constructor(
     private readonly createDeckService: CreateDeckService,
@@ -30,7 +34,6 @@ export class DecksController {
   ) {}
 
   @Get()
-  @ApiBearerAuth()
   @Roles(Role.USER)
   async findMeDecks(
     @CurrentUser() user: UserFromJwt,
@@ -40,7 +43,6 @@ export class DecksController {
   }
 
   @Get(':id')
-  @ApiBearerAuth()
   @Roles(Role.USER)
   async findOne(@CurrentUser() user: UserFromJwt, @Param('id') id: string) {
     console.log(user.roles);
@@ -48,7 +50,6 @@ export class DecksController {
   }
 
   @Post()
-  @ApiBearerAuth()
   @Roles(Role.USER)
   async create(
     @CurrentUser() user: UserFromJwt,
@@ -58,7 +59,6 @@ export class DecksController {
   }
 
   @Delete(':id')
-  @ApiBearerAuth()
   @Roles(Role.USER)
   async deleteOne(@CurrentUser() user: UserFromJwt, @Param('id') id: string) {
     return this.deleteOneDeckService.execute(user.id, id);

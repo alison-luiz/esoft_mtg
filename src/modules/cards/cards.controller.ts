@@ -1,5 +1,13 @@
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateCardDto } from './dto/create-card.dto';
 import { CreateCardService } from './services/create-card.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -11,6 +19,7 @@ import { Role } from '../users/enums/role.enum';
 import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
 @ApiTags('Cards')
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('cards')
 @ApiBearerAuth()
 export class CardsController {

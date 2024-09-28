@@ -1,5 +1,4 @@
 import { QueryTemplateDto } from '../../../shared/dtos/query-template.dto';
-import { Transform } from 'class-transformer';
 import { IsOptional, IsString } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Card } from '@/modules/cards/entities/card.entity';
