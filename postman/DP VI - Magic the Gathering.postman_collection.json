@@ -222,8 +222,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" let jsonData = pm.response.json();\r",
-									"pm.environment.set(\"token\", jsonData.access_token);"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -305,7 +304,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cards?page=1&limit=10",
+							"raw": "{{base_url}}/cards?page=1&limit=100",
 							"host": [
 								"{{base_url}}"
 							],
@@ -331,7 +330,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "10"
+									"value": "100"
 								}
 							]
 						}
@@ -390,13 +389,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cards/29ab55c7-fc99-4a4f-8eb5-aa23bdcfb20e",
+							"raw": "{{base_url}}/cards/4fd9023f-c05e-4a1c-8459-182a8cddf068",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"cards",
-								"29ab55c7-fc99-4a4f-8eb5-aa23bdcfb20e"
+								"4fd9023f-c05e-4a1c-8459-182a8cddf068"
 							]
 						}
 					},
@@ -478,7 +477,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"commanderId\": \"03609e09-4f67-4a9b-8538-414f0166999f\",\r\n    \"name\": \"Minhas Cartas\"\r\n}",
+							"raw": "{\r\n    \"commanderId\": \"1022aa91-86e8-4a96-8af7-629286eda1ba\",\r\n    \"name\": \"Minhas Cartas\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -498,7 +497,139 @@
 					"response": []
 				},
 				{
-					"name": "Find Me Decks",
+					"name": "Import Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/aliso/Desktop/import-deck.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/decks/import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks/b17bac86-3349-440b-a750-a7a4bc30b109",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"b17bac86-3349-440b-a750-a7a4bc30b109"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks/471015fe-35e9-4541-9c59-c28eeca84f5c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"471015fe-35e9-4541-9c59-c28eeca84f5c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find My Decks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks/myDecks?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"myDecks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Decks",
 					"request": {
 						"auth": {
 							"type": "bearer",
