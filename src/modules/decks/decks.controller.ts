@@ -4,10 +4,16 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Query,
+  Req,
+  UploadedFile,
   UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateDeckDto } from './dto/create-deck.dto';
@@ -22,6 +28,12 @@ import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
 import { FindAllDecksService } from './services/find-all-decks.service';
 import { FindAllDecksDto } from './dto/find-all-decks.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { Request } from 'express';
+import { Express } from 'express-serve-static-core';
+import * as fs from 'fs';
+import { AppError } from '@/shared/utils/appError.exception';
 
 @ApiTags('Decks')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -65,6 +77,78 @@ export class DecksController {
     @Body() createDeckDto: CreateDeckDto,
   ) {
     return this.createDeckService.execute(user.id, createDeckDto);
+  }
+
+  @Post('import')
+  @Roles(Role.USER)
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = file.originalname.split('.').pop();
+          callback(null, `${file.fieldname}-${uniqueSuffix}.${ext}`);
+        },
+      }),
+      fileFilter: (req, file, callback) => {
+        if (!file.originalname.match(/\.(json)$/)) {
+          return callback(
+            new HttpException(
+              'Only JSON files are allowed!',
+              HttpStatus.BAD_REQUEST,
+            ),
+            false,
+          );
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  async importDeckFile(
+    @CurrentUser() user: UserFromJwt,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: Request,
+  ) {
+    if (!file) {
+      throw new AppError({
+        id: 'FILE_NOT_FOUND',
+        message: 'File not found',
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
+    const userId = user.id;
+    try {
+      const fileContent = fs.readFileSync(file.path, 'utf8');
+      const deckData = JSON.parse(fileContent);
+      if (
+        !deckData.commanderId ||
+        !Array.isArray(deckData.cardIds) ||
+        deckData.cardIds.length !== 99
+      ) {
+        throw new AppError({
+          id: 'INVALID_FILE_FORMAT',
+          message:
+            'Invalid file format. Make sure the JSON contains a commanderId and 99 cardIds.',
+          status: HttpStatus.BAD_REQUEST,
+        });
+      }
+      const createdDeck = await this.createDeckService.importDeck(
+        deckData,
+        userId,
+      );
+      fs.unlinkSync(file.path);
+      return createdDeck;
+    } catch (error) {
+      fs.unlinkSync(file.path);
+      throw new AppError({
+        id: 'ERROR_IMPORTING_DECK',
+        message: 'Error importing deck',
+        status: HttpStatus.BAD_REQUEST,
+        error,
+      });
+    }
   }
 
   @Delete(':id')
