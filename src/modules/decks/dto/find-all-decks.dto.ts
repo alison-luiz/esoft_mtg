@@ -1,9 +1,9 @@
 import { QueryTemplateDto } from '@/shared/dtos/query-template.dto';
 import { Deck } from '../entities/deck.entity';
 
-export class FindMeDecksDto extends QueryTemplateDto {}
+export class FindAllDecksDto extends QueryTemplateDto {}
 
-export interface PaginatedFindMeDecks {
+export interface PaginatedFindAllDecks {
   data: Deck[];
   meta: {
     current_page: number;

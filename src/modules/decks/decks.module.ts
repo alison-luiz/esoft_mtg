@@ -4,7 +4,8 @@ import { CreateDeckService } from './services/create-deck.service';
 import { Deck } from './entities/deck.entity';
 import { DecksController } from './decks.controller';
 import { DeleteOneDeckService } from './services/delete-one-deck.service';
-import { FindMeDecksService } from './services/find-me-decks.service';
+import { FindAllDecksService } from './services/find-all-decks.service';
+import { FindMyDecksService } from './services/find-my-decks.service';
 import { FindOneDeckService } from './services/find-one-deck.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -15,7 +16,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   providers: [
     CreateDeckService,
     DeleteOneDeckService,
-    FindMeDecksService,
+    FindAllDecksService,
+    FindMyDecksService,
     FindOneDeckService,
   ],
 })

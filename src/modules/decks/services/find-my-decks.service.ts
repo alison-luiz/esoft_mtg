@@ -1,12 +1,12 @@
 import { AppError } from '@/shared/utils/appError.exception';
 import { Deck } from '../entities/deck.entity';
-import { FindMeDecksDto, PaginatedFindMeDecks } from '../dto/find-me-decks.dto';
+import { FindMyDecksDto, PaginatedFindMeDecks } from '../dto/find-my-decks.dto';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class FindMeDecksService {
+export class FindMyDecksService {
   constructor(
     @InjectRepository(Deck)
     private readonly deckRepository: Repository<Deck>,
@@ -14,10 +14,10 @@ export class FindMeDecksService {
 
   async execute(
     createdBy: string,
-    findMeDecksDto: FindMeDecksDto,
+    findMyDecksDto: FindMyDecksDto,
   ): Promise<PaginatedFindMeDecks> {
     try {
-      const { page = 1, limit = 10 } = findMeDecksDto;
+      const { page = 1, limit = 10 } = findMyDecksDto;
       const queryBuilder = this.deckRepository
         .createQueryBuilder('deck')
         .select(['deck.id', 'deck.name', 'deck.commanderId', 'deck.colors'])

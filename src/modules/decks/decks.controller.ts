@@ -14,12 +14,14 @@ import { CreateDeckDto } from './dto/create-deck.dto';
 import { CreateDeckService } from './services/create-deck.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { DeleteOneDeckService } from './services/delete-one-deck.service';
-import { FindMeDecksDto } from './dto/find-me-decks.dto';
-import { FindMeDecksService } from './services/find-me-decks.service';
+import { FindMyDecksDto } from './dto/find-my-decks.dto';
+import { FindMyDecksService } from './services/find-my-decks.service';
 import { FindOneDeckService } from './services/find-one-deck.service';
 import { Role } from '../users/enums/role.enum';
 import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
+import { FindAllDecksService } from './services/find-all-decks.service';
+import { FindAllDecksDto } from './dto/find-all-decks.dto';
 
 @ApiTags('Decks')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -29,17 +31,24 @@ export class DecksController {
   constructor(
     private readonly createDeckService: CreateDeckService,
     private readonly deleteOneDeckService: DeleteOneDeckService,
-    private readonly findMeDecksService: FindMeDecksService,
+    private readonly findMyDecksService: FindMyDecksService,
     private readonly findOneDeckService: FindOneDeckService,
+    private readonly findAllDecksService: FindAllDecksService,
   ) {}
 
   @Get()
+  @Roles(Role.ADMIN)
+  async findAll(@Query() findAllDecksDto: FindAllDecksDto) {
+    return this.findAllDecksService.execute(findAllDecksDto);
+  }
+
+  @Get('myDecks')
   @Roles(Role.USER)
-  async findMeDecks(
+  async findMyDecks(
     @CurrentUser() user: UserFromJwt,
-    @Query() findMeDecksDto: FindMeDecksDto,
+    @Query() findMyDecksDto: FindMyDecksDto,
   ) {
-    return this.findMeDecksService.execute(user.id, findMeDecksDto);
+    return this.findMyDecksService.execute(user.id, findMyDecksDto);
   }
 
   @Get(':id')
