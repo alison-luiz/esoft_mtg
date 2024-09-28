@@ -16,7 +16,7 @@ export class GetCardsApi {
     private readonly createCardService: CreateCardService,
   ) {}
 
-  async execute(): Promise<string> {
+  async execute(): Promise<{ message: string }> {
     const hasFetchCards = await this.configRepository.findOne({
       where: {
         hasFetchCards: true,
@@ -132,7 +132,8 @@ export class GetCardsApi {
     await this.configRepository.save({
       hasFetchCards: true,
     });
-
-    return 'Cards fetched successfully';
+    return {
+      message: 'Cards fetched successfully from API - Magic The Gathering',
+    };
   }
 }
