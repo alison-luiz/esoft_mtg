@@ -18,6 +18,7 @@ import { GetCardsApi } from './services/get-cards-api.service';
 import { Role } from '../users/enums/role.enum';
 import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
+import { CacheService } from '../cache/cache.service';
 @ApiTags('Cards')
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('cards')
@@ -28,6 +29,7 @@ export class CardsController {
     private readonly findAllCardService: FindAllCardService,
     private readonly findOneCardService: FindOneCardService,
     private readonly createCardService: CreateCardService,
+    private readonly cacheService: CacheService,
   ) {}
 
   @Get('/seed')
@@ -39,6 +41,10 @@ export class CardsController {
   @Get()
   @Roles(Role.USER)
   async findAll(@Query() findAllCardQueryDto: FindAllCardQueryDto) {
+    const cachedData = await this.cacheService.getCache('cards-find-all');
+    if (cachedData) {
+      return cachedData;
+    }
     return this.findAllCardService.execute(findAllCardQueryDto);
   }
 

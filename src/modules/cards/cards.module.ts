@@ -10,10 +10,12 @@ import { Legality } from './entities/legality.entity';
 import { Ruling } from './entities/ruling.entity';
 import { FindAllCardService } from './services/find-all-card.service';
 import { FindOneCardService } from './services/find-one-card.service';
+import { CacheModule } from '../cache/cache.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Card, Config, ForeignName, Legality, Ruling]),
+    CacheModule,
   ],
   controllers: [CardsController],
   providers: [

@@ -11,6 +11,7 @@ import { RolesGuard } from './modules/users/guards/roles.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { DecksModule } from './modules/decks/decks.module';
+import { CacheModule } from './modules/cache/cache.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { DecksModule } from './modules/decks/decks.module';
     CardsModule,
     CommandersModule,
     DecksModule,
+    CacheModule,
   ],
   controllers: [],
   providers: [

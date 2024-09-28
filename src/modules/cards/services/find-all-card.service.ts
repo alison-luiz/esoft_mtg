@@ -8,12 +8,14 @@ import {
 } from '../dto/find-all-card.dto';
 import { AppError } from '@/shared/utils/appError.exception';
 import { FindCardsCreateDeckDto } from '../dto/find-cards-create-deck.dto';
+import { CacheService } from '@/modules/cache/cache.service';
 
 @Injectable()
 export class FindAllCardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
+    private readonly cacheService: CacheService,
   ) {}
 
   async execute(
@@ -48,6 +50,21 @@ export class FindAllCardService {
       const totalPages = Math.ceil(count / +limit);
       const from = (+page - 1) * +limit + 1;
       const to = (+page - 1) * +limit + cards.length;
+      this.cacheService.setCache(
+        'cards-find-all',
+        {
+          data: cards,
+          meta: {
+            current_page: +page,
+            from: from > count ? count : from,
+            last_page: totalPages,
+            per_page: +limit,
+            to: to > count ? count : to,
+            total: count,
+          },
+        },
+        10,
+      );
       return {
         data: cards,
         meta: {
