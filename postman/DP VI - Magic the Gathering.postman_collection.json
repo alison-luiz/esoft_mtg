@@ -304,7 +304,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cards?page=1&limit=1000",
+							"raw": "{{base_url}}/cards?page=1&limit=10",
 							"host": [
 								"{{base_url}}"
 							],
@@ -330,7 +330,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "1000"
+									"value": "10"
 								}
 							]
 						}
@@ -477,7 +477,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"commanderId\": \"1022aa91-86e8-4a96-8af7-629286eda1ba\",\r\n    \"name\": \"Minhas Cartas\"\r\n}",
+							"raw": "{\r\n    \"commanderId\": \"58552c78-acb8-4053-bf0a-333c845d39c8\",\r\n    \"name\": \"Minhas Cartas\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
