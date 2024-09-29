@@ -73,6 +73,34 @@ Arquivo modelo: [import-deck.json](https://github.com/alison-luiz/esoft_mtg/blob
 
 ![image](https://github.com/user-attachments/assets/aefec83e-fa21-4f46-871a-7423a25bb8a4)
 
+## Teste - AutoCannon 🕵️
+
+Utilizamos a ferramenta [AutoCannon](https://www.npmjs.com/package/autocannon) em nosso projeto para analisar o poder de processamento das nossas requisições.
+
+- Foi feito o teste com 10 conexões simultâneas durante 10 segundos.
+- O teste foi executado após popular o banco com informações de 5.000 cartas.
+
+Primeiro resultado (Rota onde não temos o sistema de cacheamento):
+
+```bash
+$  yarn test:autocannon
+```
+
+- Chegamos no resultado de 171 requests em 10.01s, 55.9 MB
+
+![image](https://github.com/user-attachments/assets/4877eb9e-f054-4735-b231-07e57b4f3d45)
+
+Segundo resultado (Rota onde temos o sistema de cacheamento):
+
+```bash
+$  yarn test:autocannon-redis
+```
+
+- Chegamos no resultado de 614 requests em 10.01s, 210 MB
+- Conseguimos triplicar a quantidade de solicitações usando o sistema de chache.
+
+![image](https://github.com/user-attachments/assets/5108dfff-e8ac-41d6-800c-02801322313a)
+
 ## Documentação/Endpoints 📰
 
 Foi disponibilizado os arquivos de environment e collection da ferramenta [postman](https://www.postman.com/) contendo todos os endpoints feitos neste projeto.

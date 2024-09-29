@@ -304,7 +304,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cards?page=1&limit=100",
+							"raw": "{{base_url}}/cards?page=1&limit=1000",
 							"host": [
 								"{{base_url}}"
 							],
@@ -330,7 +330,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "100"
+									"value": "1000"
 								}
 							]
 						}
@@ -660,6 +660,67 @@
 									"key": "limit",
 									"value": "10"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Autocannon",
+			"item": [
+				{
+					"name": "Find All Cards",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards/autocannon",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards",
+								"autocannon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Cards (Cached)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards/autocannon-redis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards",
+								"autocannon-redis"
 							]
 						}
 					},

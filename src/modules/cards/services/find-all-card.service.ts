@@ -134,4 +134,25 @@ export class FindAllCardService {
     }
     return deckCards;
   }
+
+  async findAllCardsTestAutocannon(): Promise<Card[]> {
+    const queryBuilder = this.cardRepository
+      .createQueryBuilder('cards')
+      .select(['cards.id', 'cards.name']);
+    let cards = await queryBuilder.getMany();
+    return cards;
+  }
+
+  async findAllCardsTestAutocannonRedis(): Promise<Card[]> {
+    const cachedData = await this.cacheService.getCache('cards-find-all-test');
+    if (cachedData) {
+      return cachedData;
+    }
+    const queryBuilder = this.cardRepository
+      .createQueryBuilder('cards')
+      .select(['cards.id', 'cards.name']);
+    let cards = await queryBuilder.getMany();
+    this.cacheService.setCache('cards-find-all-test', cards, 10);
+    return cards;
+  }
 }

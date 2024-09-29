@@ -48,6 +48,18 @@ export class CardsController {
     return this.findAllCardService.execute(findAllCardQueryDto);
   }
 
+  @Get('/autocannon')
+  @Roles(Role.ADMIN)
+  async autocannon() {
+    return this.findAllCardService.findAllCardsTestAutocannon();
+  }
+
+  @Get('/autocannon-redis')
+  @Roles(Role.ADMIN)
+  async autocannonRedis() {
+    return this.findAllCardService.findAllCardsTestAutocannonRedis();
+  }
+
   @Get('/:id')
   @Roles(Role.USER)
   async findOne(@Query('id') id: string) {

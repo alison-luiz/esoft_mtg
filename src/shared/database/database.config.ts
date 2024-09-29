@@ -7,6 +7,7 @@ import { Deck } from '@/modules/decks/entities/deck.entity';
 import { User } from '@/modules/users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Migrations1718484039104 } from './migrations/1718484039104-AddUserTable';
 
 export class DatabaseConfig {
   static createTypeOrmOptions(
@@ -21,7 +22,7 @@ export class DatabaseConfig {
       synchronize: true,
       connectTimeoutMS: 30000,
       migrationsRun: false,
-      migrations: [],
+      migrations: [Migrations1718484039104],
     };
   }
 }
