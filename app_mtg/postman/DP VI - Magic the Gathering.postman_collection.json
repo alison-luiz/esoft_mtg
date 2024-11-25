@@ -1,0 +1,732 @@
+{
+	"info": {
+		"_postman_id": "daab1c9c-18cc-4d9b-be71-6e7d2c612ac0",
+		"name": "DP VI - Magic the Gathering",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27403992"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Alison\",\r\n    \"lastName\": \"Luiz\",\r\n    \"email\": \"alison.luiz@gmail.com\",\r\n    \"password\": \"Pass@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" let jsonData = pm.response.json();\r",
+									"pm.environment.set(\"token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Alison\",\r\n    \"lastName\": \"Luiz da Silva\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" let jsonData = pm.response.json();\r",
+									"pm.environment.set(\"token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"Pass@123\",\r\n    \"newPassword\": \"Pass@321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me/password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" let jsonData = pm.response.json();\r",
+									"pm.environment.set(\"token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"alison.luiz@gmail.com\",\r\n    \"password\": \"Pass@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Role Admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"alison.luiz@gmail.com\",\r\n    \"secretAdminKey\": \"9c7fd8ed-2ee5-43be-be34-67863a30ab9c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/role/admin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"role",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "Seed - Search API MTG",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards/seed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards",
+								"seed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Cards",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Ancestor's Chosen",
+									"description": "Card name",
+									"disabled": true
+								},
+								{
+									"key": "colorIdentity",
+									"value": "W",
+									"description": "Colors e.g: B,R,W",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"New Card\",\r\n  \"manaCost\": \"{2}{W}{W}\",\r\n  \"cmc\": 4,\r\n  \"colors\": [\"W\"],\r\n  \"colorIdentity\": [\"W\"],\r\n  \"type\": \"Legendary Creature — Human Rebel\",\r\n  \"supertypes\": [\"Legendary\"],\r\n  \"types\": [\"Creature\"],\r\n  \"subtypes\": [\"Human\", \"Rebel\"],\r\n  \"rarity\": \"Rare\",\r\n  \"set\": \"10E\",\r\n  \"setName\": \"Tenth Edition\",\r\n  \"text\": \"Prevent all damage that would be dealt to New Card.\",\r\n  \"flavor\": \"Mercadia's masks can no longer hide the truth. Our day has come at last.\",\r\n  \"artist\": \"Steven Belledin\",\r\n  \"number\": \"12\",\r\n  \"power\": \"2\",\r\n  \"toughness\": \"2\",\r\n  \"layout\": \"normal\",\r\n  \"multiverseid\": \"130554\",\r\n  \"imageUrl\": \"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card\",\r\n  \"variations\": [\"82ddb9b0-1fd3-5969-8eff-1b4b24db10d6\"],\r\n  \"rulings\": [\r\n    {\r\n      \"date\": \"2020-09-25\",\r\n      \"text\": \"Activating Roiling Vortex’s last ability won’t undo any life gained before it resolved.\"\r\n    }\r\n  ],\r\n  \"foreignNames\": [\r\n    {\r\n      \"name\": \"Cho-Manno\",\r\n      \"text\": \"Verhindere allen Schaden, der Cho-Manno zugefügt würde.\",\r\n      \"type\": \"Legendäre Kreatur — Mensch, Rebell\",\r\n      \"flavor\": \"„Merkadias Masken können die Wahrheit nicht länger verbergen. Unsere Stunde ist endlich gekommen.\",\r\n      \"imageUrl\": \"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148449&type=card\",\r\n      \"language\": \"German\",\r\n      \"identifiers\": {\r\n        \"scryfallId\": \"c8ba336d-ccc2-40a8-b1dd-e22dcc0f30e4\",\r\n        \"multiverseId\": 148449\r\n      }\r\n    }\r\n  ],\r\n  \"printings\": [\"10E\", \"MMQ\", \"PS11\"],\r\n  \"originalText\": \"Prevent all damage that would be dealt to New Card.\",\r\n  \"originalType\": \"Legendary Creature - Human Rebel\",\r\n  \"legalities\": [\r\n    {\r\n      \"format\": \"Commander\",\r\n      \"legality\": \"Legal\"\r\n    }\r\n  ],\r\n  \"cardIdApi\": \"81daea6a-2735-5a46-a2da-b65a2ad5738f\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cards",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards/4fd9023f-c05e-4a1c-8459-182a8cddf068",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards",
+								"4fd9023f-c05e-4a1c-8459-182a8cddf068"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Commanders",
+			"item": [
+				{
+					"name": "Find All Commanders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/commanders?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commanders"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Cho-Manno, Revolutionary",
+									"description": "Commander name",
+									"disabled": true
+								},
+								{
+									"key": "colorIdentity",
+									"value": "B",
+									"description": "Colors e.g: B,R,W",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Decks",
+			"item": [
+				{
+					"name": "New Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commanderId\": \"58552c78-acb8-4053-bf0a-333c845d39c8\",\r\n    \"name\": \"Minhas Cartas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/decks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/aliso/Desktop/import-deck.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/decks/import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks/b17bac86-3349-440b-a750-a7a4bc30b109",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"b17bac86-3349-440b-a750-a7a4bc30b109"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Deck",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks/471015fe-35e9-4541-9c59-c28eeca84f5c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"471015fe-35e9-4541-9c59-c28eeca84f5c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find My Decks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks/myDecks?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"myDecks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Decks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/decks?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Autocannon",
+			"item": [
+				{
+					"name": "Find All Cards",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards/autocannon",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards",
+								"autocannon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Cards (Cached)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cards/autocannon-redis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cards",
+								"autocannon-redis"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
