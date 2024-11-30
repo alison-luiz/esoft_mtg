@@ -24,11 +24,11 @@ Tecnologias utilizadas neste projeto:
 ## Iniciando o projeto 🚩
 
 ```bash
-$  git  clone  https://github.com/alison-luiz/esoft_mtg
+$  git clone https://github.com/alison-luiz/esoft_mtg
 ```
 
 ```bash
-$  cd  esoft_mtg
+$  cd esoft_mtg
 ```
 
 #### 1. Usar o docker-compose.yml para compilar o projeto e iniciá-lo (na pasta raiz)
@@ -95,7 +95,7 @@ Utilizamos a ferramenta [AutoCannon](https://www.npmjs.com/package/autocannon) e
 Primeiro resultado (Rota onde não temos o sistema de cacheamento):
 
 ```bash
-$  yarn  test:autocannon
+$  yarn test:autocannon
 ```
 
 - Chegamos no resultado de 171 requests em 10.01s, 55.9 MB
@@ -105,7 +105,7 @@ $  yarn  test:autocannon
 Segundo resultado (Rota onde temos o sistema de cacheamento):
 
 ```bash
-$  yarn  test:autocannon-redis
+$  yarn test:autocannon-redis
 ```
 
 - Chegamos no resultado de 614 requests em 10.01s, 210 MB
