@@ -10,6 +10,7 @@ import { FindOneDeckService } from './services/find-one-deck.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RabbitMQModule } from '@/shared/rabbitmq/rabbitmq.module';
+import { DeckUpdatesGateway } from './deck-updates.gateway';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { RabbitMQModule } from '@/shared/rabbitmq/rabbitmq.module';
     FindAllDecksService,
     FindMyDecksService,
     FindOneDeckService,
+    DeckUpdatesGateway
   ],
 })
 export class DecksModule {}

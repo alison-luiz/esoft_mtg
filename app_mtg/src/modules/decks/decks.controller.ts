@@ -34,6 +34,7 @@ import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
 import * as fs from 'fs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { DeckUpdatesGateway } from './deck-updates.gateway';
 
 @ApiTags('Decks')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -41,6 +42,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 @ApiBearerAuth()
 export class DecksController {
   constructor(
+    private readonly deckUpdatesGateway: DeckUpdatesGateway,
     private readonly createDeckService: CreateDeckService,
     private readonly deleteOneDeckService: DeleteOneDeckService,
     private readonly findMyDecksService: FindMyDecksService,
@@ -51,6 +53,10 @@ export class DecksController {
   @MessagePattern('deck_updates_queue')
   async handleMessage(@Payload() receivedResponse: any) {
     console.log('Deck saved in the DataBase from RabbitMQ');
+    this.deckUpdatesGateway.sendDeckUpdate({
+      message: 'Deck import successful!',
+      deck: receivedResponse,
+    });
   }
 
   @Get()
