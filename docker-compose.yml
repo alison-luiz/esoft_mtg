@@ -21,6 +21,11 @@ services:
       - DATABASE_URL=postgres://app_mtg:app_mtg@db_app_mtg:5432/app_mtg
       - REDIS_HOST=redis_app_mtg
       - REDIS_PORT=6379
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+      - RABBITMQ_QUEUE=notifications
+    volumes:
+      - ./app_mtg:/usr/src/app
+      - /usr/src/app/node_modules
 
   consumer:
     container_name: "consumer"
@@ -33,6 +38,10 @@ services:
     environment:
       - ENV=production
       - DATABASE_URL=postgres://app_mtg:app_mtg@db_app_mtg:5432/app_mtg
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+    volumes:
+      - ./consumer:/usr/src/app
+      - /usr/src/app/node_modules
 
   db_app_mtg:
     container_name: "db_app_mtg"
