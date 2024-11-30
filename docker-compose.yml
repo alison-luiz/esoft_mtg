@@ -26,6 +26,7 @@ services:
     volumes:
       - ./app_mtg:/usr/src/app
       - /usr/src/app/node_modules
+      - /usr/src/app/dist
 
   consumer:
     container_name: "consumer"
@@ -42,6 +43,7 @@ services:
     volumes:
       - ./consumer:/usr/src/app
       - /usr/src/app/node_modules
+      - /usr/src/app/dist
 
   db_app_mtg:
     container_name: "db_app_mtg"
