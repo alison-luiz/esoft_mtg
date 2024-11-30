@@ -9,3 +9,6 @@ consumer/node_modules
 consumer/dist
 consumer/logs
 consumer/.env
+
+# FRONTEND
+frontend/node_modules
