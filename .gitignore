@@ -12,3 +12,4 @@ consumer/.env
 
 # FRONTEND
 frontend/node_modules
+frontend/.env
