@@ -1,0 +1,46 @@
+.deck-updates-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #343a40;
+    text-transform: uppercase;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+  }
+  
+  .updates-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .update-item {
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    font-size: 16px;
+    color: #495057;
+  }
+  
+  .update-item:hover {
+    background: #e9ecef;
+    transform: scale(1.02);
+  }
+  
+  .update-item strong {
+    color: #007bff;
+  }
+  
