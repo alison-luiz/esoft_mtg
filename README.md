@@ -125,3 +125,4 @@ Também contamos com uma documentação feita pelo [swagger](https://swagger.io/
 http://localhost:3000/docs/
 
 ![image](https://github.com/user-attachments/assets/40d56f7f-9ee4-4f6b-8809-9e77f2378306)
+
