@@ -4,17 +4,20 @@ import { DatabaseConfig } from './shared/database/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseService } from './shared/database/database.service';
 import { CardModule } from './modules/cards/card.module';
+import { DecksModule } from './modules/decks/decks.module';
 
 @Module({
   imports: [
-    CardModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) =>
         DatabaseConfig.createTypeOrmOptions(configService),
       inject: [ConfigService],
-    })],
+    }),
+    CardModule,
+    DecksModule,
+  ],
   controllers: [],
   providers: [DatabaseService],
 })

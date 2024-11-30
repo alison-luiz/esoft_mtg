@@ -11,7 +11,7 @@ export class CreateCardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
-    @Inject('RABBITMQ_SERVICE')
+    @Inject('CARD_CREATE_QUEUE')
     private readonly client: ClientProxy,
   ) {}
 
@@ -21,7 +21,7 @@ export class CreateCardService {
         ...card,
         createdBy,
       });
-      this.client.emit('notifications', { card: JSON.stringify(newCard) });
+      this.client.emit('card_create_queue', { card: JSON.stringify(newCard) });
       return newCard;
     } catch (error) {
       throw new AppError({

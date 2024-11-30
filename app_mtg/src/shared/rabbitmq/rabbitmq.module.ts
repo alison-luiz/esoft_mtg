@@ -7,7 +7,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ConfigModule,
     ClientsModule.registerAsync([
       {
-        name: 'RABBITMQ_SERVICE',
+        name: 'CARD_CREATE_QUEUE',
         imports: [ConfigModule],
         inject: [ConfigService],
         useFactory: (configService: ConfigService) => ({
@@ -17,8 +17,23 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
               configService.get<string>('RABBITMQ_URL') ||
                 'amqp://localhost:5672',
             ],
-            queue:
-              configService.get<string>('RABBITMQ_QUEUE') || 'notifications',
+            queue: 'card_create_queue',
+            queueOptions: { durable: true },
+          },
+        }),
+      },
+      {
+        name: 'DECK_IMPORT_QUEUE',
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.RMQ,
+          options: {
+            urls: [
+              configService.get<string>('RABBITMQ_URL') ||
+                'amqp://localhost:5672',
+            ],
+            queue: 'deck_import_queue',
             queueOptions: { durable: true },
           },
         }),

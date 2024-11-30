@@ -8,14 +8,25 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  const rabbitMQUrl = configService.get<string>('RABBITMQ_URL') || 'amqp://localhost:5672';
-  const queueName = configService.get<string>('RABBITMQ_QUEUE') || 'notifications';
+  const rabbitMQUrl =
+    configService.get<string>('RABBITMQ_URL') || 'amqp://localhost:5672';
 
   app.connectMicroservice({
     transport: Transport.RMQ,
     options: {
       urls: [rabbitMQUrl],
-      queue: queueName,
+      queue: 'card_create_queue',
+      queueOptions: {
+        durable: true,
+      },
+    },
+  });
+
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [rabbitMQUrl],
+      queue: 'deck_import_queue',
       queueOptions: {
         durable: true,
       },

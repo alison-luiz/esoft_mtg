@@ -22,7 +22,6 @@ services:
       - REDIS_HOST=redis_app_mtg
       - REDIS_PORT=6379
       - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
-      - RABBITMQ_QUEUE=notifications
     volumes:
       - ./app_mtg:/usr/src/app
       - /usr/src/app/node_modules

@@ -9,9 +9,15 @@ import { FindMyDecksService } from './services/find-my-decks.service';
 import { FindOneDeckService } from './services/find-one-deck.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RabbitMQModule } from '@/shared/rabbitmq/rabbitmq.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Deck]), CommandersModule, CardsModule],
+  imports: [
+    TypeOrmModule.forFeature([Deck]),
+    CommandersModule,
+    CardsModule,
+    RabbitMQModule,
+  ],
   controllers: [DecksController],
   providers: [
     CreateDeckService,

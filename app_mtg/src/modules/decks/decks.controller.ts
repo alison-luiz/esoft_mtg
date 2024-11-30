@@ -12,28 +12,27 @@ import {
   Req,
   UploadedFile,
   UseInterceptors,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AppError } from '@/shared/utils/appError.exception';
 import { CreateDeckDto } from './dto/create-deck.dto';
 import { CreateDeckService } from './services/create-deck.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { DeleteOneDeckService } from './services/delete-one-deck.service';
+import { diskStorage } from 'multer';
+import { ExportDeckDto } from './dto/export-deck.dto';
+import { Express } from 'express-serve-static-core';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FindAllDecksDto } from './dto/find-all-decks.dto';
+import { FindAllDecksService } from './services/find-all-decks.service';
 import { FindMyDecksDto } from './dto/find-my-decks.dto';
 import { FindMyDecksService } from './services/find-my-decks.service';
 import { FindOneDeckService } from './services/find-one-deck.service';
+import { Request, Response } from 'express';
 import { Role } from '../users/enums/role.enum';
 import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
-import { FindAllDecksService } from './services/find-all-decks.service';
-import { FindAllDecksDto } from './dto/find-all-decks.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { Request } from 'express';
-import { Express } from 'express-serve-static-core';
 import * as fs from 'fs';
-import { AppError } from '@/shared/utils/appError.exception';
 
 @ApiTags('Decks')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -66,8 +65,13 @@ export class DecksController {
   @Get(':id')
   @Roles(Role.USER)
   async findOne(@CurrentUser() user: UserFromJwt, @Param('id') id: string) {
-    console.log(user.roles);
     return this.findOneDeckService.execute(user.id, id);
+  }
+
+  @Post('export')
+  @Roles(Role.USER)
+  async exportDeck(@Body() exportDeckDto: ExportDeckDto) {
+    return this.createDeckService.exportDeck(exportDeckDto);
   }
 
   @Post()
