@@ -33,6 +33,7 @@ import { Role } from '../users/enums/role.enum';
 import { Roles } from '../users/decorators/roles.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
 import * as fs from 'fs';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @ApiTags('Decks')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -46,6 +47,11 @@ export class DecksController {
     private readonly findOneDeckService: FindOneDeckService,
     private readonly findAllDecksService: FindAllDecksService,
   ) {}
+
+  @MessagePattern('deck_updates_queue')
+  async handleMessage(@Payload() receivedResponse: any) {
+    console.log('Deck saved in the DataBase from RabbitMQ');
+  }
 
   @Get()
   @Roles(Role.ADMIN)

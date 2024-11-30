@@ -61,7 +61,7 @@ export class CreateDeckService {
     }
   }
 
-  async importDeck(deckData: any, createdBy: string): Promise<Partial<Deck>> {
+  async importDeck(deckData: any, createdBy: string): Promise<string> {
     const deckName = deckData.name;
     if (!deckName) {
       throw new AppError({
@@ -107,7 +107,7 @@ export class CreateDeckService {
       createdBy,
     };
     this.client.emit('deck_import_queue', { deck: JSON.stringify(newDeck) });
-    return newDeck;
+    return 'Deck has send to queue to be imported... await a moment';
   }
 
   async exportDeck(exportDeckDto: ExportDeckDto): Promise<any> {
