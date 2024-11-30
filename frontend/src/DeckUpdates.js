@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import './DeckUpdates.css';
 
-const SOCKET_URL = 'http://localhost:3000';
+const SOCKET_URL = process.env.SOCKET_URL || 'http://localhost:3000';
 
 function DeckUpdates() {
   const [updates, setUpdates] = useState([]);
@@ -26,7 +26,9 @@ function DeckUpdates() {
       <ul className="updates-list">
         {updates.map((update, index) => (
           <li key={index} className="update-item">
-            <span>Deck <strong>{update.deck?.name || 'Desconhecido'}</strong> foi importado com sucesso!</span>
+            <span>
+              Deck <strong>{update.deck?.name || 'Desconhecido'}</strong> foi importado com sucesso!
+            </span>
           </li>
         ))}
       </ul>
