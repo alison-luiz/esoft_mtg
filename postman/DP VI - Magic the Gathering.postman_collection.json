@@ -535,6 +535,43 @@
 					"response": []
 				},
 				{
+					"name": "Generate Deck File to Import",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commanderId\": \"78a5caf3-b1fd-4907-8c33-e3e1f68f2678\",\r\n    \"name\": \"Minhas Cartas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/decks/export",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"decks",
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete Deck",
 					"request": {
 						"auth": {
