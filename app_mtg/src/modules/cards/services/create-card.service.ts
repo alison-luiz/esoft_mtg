@@ -11,8 +11,9 @@ export class CreateCardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
-    @Inject('RABBITMQ_SERVICE') private readonly client: ClientProxy,
-  ) { }
+    @Inject('RABBITMQ_SERVICE')
+    private readonly client: ClientProxy,
+  ) {}
 
   async execute(createdBy: string, card: CreateCardDto): Promise<Card> {
     try {
@@ -20,10 +21,8 @@ export class CreateCardService {
         ...card,
         createdBy,
       });
-
-      this.client.emit('notifications', { card: JSON.stringify(newCard)});
+      this.client.emit('notifications', { card: JSON.stringify(newCard) });
       return newCard;
-      
     } catch (error) {
       throw new AppError({
         id: 'CREATE_CARD_ERROR',

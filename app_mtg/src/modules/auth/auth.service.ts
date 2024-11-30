@@ -6,7 +6,7 @@ import { User } from '../users/entities/user.entity';
 import { UserPayload } from './models/user-payload';
 import { UsersService } from '../users/users.service';
 import { UserToken } from './models/user-token';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {

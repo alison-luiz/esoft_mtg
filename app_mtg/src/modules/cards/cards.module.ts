@@ -16,7 +16,8 @@ import { RabbitMQModule } from '@/shared/rabbitmq/rabbitmq.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Card, Config, ForeignName, Legality, Ruling]),
-    CacheModule, RabbitMQModule
+    CacheModule,
+    RabbitMQModule,
   ],
   controllers: [CardsController],
   providers: [

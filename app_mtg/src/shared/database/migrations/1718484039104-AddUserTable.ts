@@ -1,6 +1,6 @@
 import { User } from '../../../modules/users/entities/user.entity';
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { Role } from '../../../modules/users/enums/role.enum';
 
 export class Migrations1718484039104 implements MigrationInterface {
