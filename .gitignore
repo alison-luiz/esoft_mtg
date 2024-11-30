@@ -1,0 +1,7 @@
+# APP MTG
+app_mtg/node_modules
+app_mtg/.env
+
+# CONSUMER
+consumer/node_modules/
+consumer/.env

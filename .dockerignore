@@ -1,0 +1,7 @@
+app_mtg/node_modules
+app_mtg/npm-debug.log
+app_mtg/.env
+
+consumer/node_modules
+consumer/npm-debug.log
+consumer/.env

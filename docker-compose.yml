@@ -1,0 +1,64 @@
+services:
+  app_mtg:
+    container_name: "app_mtg"
+    build:
+      context: ./app_mtg
+      dockerfile: ./Dockerfile
+    restart: always
+    depends_on:
+      - db_app_mtg
+      - redis_app_mtg
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    environment:
+      - ENV=production
+      - BASE_URL=http://app_mtg:3000
+      - MAGIC_THE_GATHERING_API_URL=https://api.magicthegathering.io/v1
+      - LAST_PAGE_NUMBER=50
+      - JWT_SECRET=38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b
+      - SECRET_ADMIN_KEY=9c7fd8ed-2ee5-43be-be34-67863a30ab9c
+      - DATABASE_URL=postgres://app_mtg:app_mtg@db_app_mtg:5432/app_mtg
+      - REDIS_HOST=redis_app_mtg
+      - REDIS_PORT=6379
+
+  consumer:
+    container_name: "consumer"
+    build:
+      context: ./consumer
+      dockerfile: ./Dockerfile
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      - ENV=production
+      - DATABASE_URL=postgres://app_mtg:app_mtg@db_app_mtg:5432/app_mtg
+
+  db_app_mtg:
+    container_name: "db_app_mtg"
+    image: "postgres:16.4-alpine"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "app_mtg"
+      POSTGRES_PASSWORD: "app_mtg"
+      POSTGRES_DB: "app_mtg"
+
+  redis_app_mtg:
+    container_name: "redis_app_mtg"
+    image: "redis:latest"
+    restart: always
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: my-rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest

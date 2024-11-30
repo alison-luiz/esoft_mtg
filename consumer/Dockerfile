@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/consumer
 
 COPY package*.json ./
 
@@ -11,7 +11,5 @@ COPY . .
 RUN yarn run build
 
 RUN cp .env.prod .env
-
-EXPOSE 3000
 
 CMD ["node", "dist/main"]

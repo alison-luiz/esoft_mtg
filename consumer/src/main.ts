@@ -12,11 +12,11 @@ async function bootstrap() {
       queue: 'notifications',
       queueOptions: {
         durable: true,
-      }
-    }
+      },
+    },
   });
 
-  await app.startAllMicroservices()
-  await app.listen(process.env.PORT ?? 3001);
+  await app.startAllMicroservices();
+  await app.listen(3001);
 }
 bootstrap();
