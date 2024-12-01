@@ -50,6 +50,8 @@ services:
       context: ./frontend
       dockerfile: ./Dockerfile
     restart: always
+    depends_on:
+      - app_mtg
     ports:
       - "4000:4000"
     volumes:
@@ -57,7 +59,7 @@ services:
       - /usr/src/app/node_modules
     environment:
       - PORT=4000
-      - SOCKET_URL=http://app_mtg:3000
+      - SOCKET_URL=http://app_mtg:3000 
 
   db_app_mtg:
     container_name: "db_app_mtg"
