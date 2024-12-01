@@ -9,17 +9,18 @@
 
 ---
 
-Este é um projeto de avaliação do 2º bimestre da matéria Desafio Profissional Vi, onde é feito uma requisição para API externa buscando uma vasta quantidade de cartas do Magic the Gathering, salvando na base de dados. Posteriormente foi implementado um sistema de mensageria utilizando a ferramente RabbitMQ, aplicado aos modules de criação de carta e importação de novos decks na aplicação.
+Este é um projeto de avaliação do 2º bimestre da matéria Desafio Profissional VI, onde é feito uma requisição para API externa buscando uma vasta quantidade de cartas do Magic the Gathering, salvando na base de dados. Posteriormente foi implementado um sistema de mensageria utilizando a ferramente RabbitMQ, aplicado aos modules de criação de carta e importação de novos decks na aplicação.
 
 Tecnologias utilizadas neste projeto:
 
-- NestJS, TypeORM, PostgreSQL, Docker, Redis, RabbitMQ
+- NestJS, TypeORM, PostgreSQL, Docker, Redis, RabbitMQ, Websocket, React
 
 ## Dependências 📦
 
 [Docker](https://www.docker.com/)
 [PostgreSQL](https://www.postgresql.org/)
 [RabbitMQ](https://www.rabbitmq.com/)
+[Websocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 
 ## Iniciando o projeto 🚩
 
@@ -113,6 +114,16 @@ $  yarn test:autocannon-redis
 
 ![image](https://github.com/user-attachments/assets/5108dfff-e8ac-41d6-800c-02801322313a)
 
+## Frontend 💻
+
+Utilizamos as tecnologias [React](https://react.dev/), para criar uma interface dinâmica e responsiva, e [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API), que possibilita a comunicação em tempo real com o backend. Foi desenvolvida uma interface que apresenta eventos de importação de decks, atualizando o usuário instantaneamente sobre a conclusão do processo. Os eventos são exibidos em cards organizados, com o nome do deck destacado em azul, proporcionando clareza e objetividade na comunicação do status.
+
+O acesso ao Frontend, foi disponibilizada na seguinte rota:
+
+- Frontend - http://localhost:4000
+
+![Deck Update](https://github.com/user-attachments/assets/0630fec4-6480-425c-974e-5bfb2335de26)
+
 ## Documentação/Endpoints 📰
 
 Foi disponibilizado os arquivos de environment e collection da ferramenta [postman](https://www.postman.com/) contendo todos os endpoints feitos neste projeto.
@@ -125,4 +136,3 @@ Também contamos com uma documentação feita pelo [swagger](https://swagger.io/
 http://localhost:3000/docs/
 
 ![image](https://github.com/user-attachments/assets/40d56f7f-9ee4-4f6b-8809-9e77f2378306)
-
